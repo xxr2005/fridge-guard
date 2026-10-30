@@ -1,5 +1,22 @@
 <!-- pages/index/index.wxml -->
 <view class="page">
-  <view>首页占位</view>
-  <button class="entry" bindtap="goAdd">去添加食材</button>
+  <block wx:if="{{records.length}}">
+    <view
+      wx:for="{{records}}"
+      wx:key="id"
+      class="card card-{{item.status}}"
+    >
+      <image wx:if="{{item.photoPath}}" class="thumb" src="{{item.photoPath}}" mode="aspectFill" />
+      <view wx:else class="thumb thumb-placeholder">无图</view>
+      <view class="info">
+        <text class="name">{{item.foodName}}</text>
+        <text class="remain">{{item.remainText}}</text>
+      </view>
+      <button class="eaten" data-id="{{item.id}}" bindtap="onMarkEaten">已吃完</button>
+    </view>
+  </block>
+
+  <view wx:else class="empty" bindtap="onEmptyTap">还没有记录，去添加吧</view>
+
+  <button class="add-fixed" bindtap="goAdd">添加食材</button>
 </view>
