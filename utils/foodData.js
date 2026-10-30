@@ -66,4 +66,10 @@ const foodData = [
   { name: '蜂蜜', category: '其他', fridgeOk: false, fridgeDays: 0, noFridgeReason: '蜂蜜本身耐储存，冷藏易结晶' },
 ];
 
+// 参考图占位：正式图未定，先用 dummyimage 按食物名生成，后续替换成真实图 URL
+const PLACEHOLDER_IMG = 'https://dummyimage.com/100x100/eee/333&text=';
+foodData.forEach((item) => {
+  item.imageUrl = PLACEHOLDER_IMG + item.name;
+});
+
 module.exports = foodData;

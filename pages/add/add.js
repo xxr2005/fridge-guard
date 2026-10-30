@@ -13,10 +13,14 @@ function startOfDay(ts) {
 
 Page({
   data: {
-    foodList: foodData,
+    foodList: [],
     photoPath: '',
     selectedFood: null,
     adviceText: '',
+  },
+
+  onLoad() {
+    this.setData({ foodList: foodData });
   },
 
   onChoosePhoto() {
@@ -51,10 +55,6 @@ Page({
 
   onConfirm() {
     const { photoPath, selectedFood } = this.data;
-    if (!photoPath) {
-      wx.showToast({ title: '请先拍照', icon: 'none' });
-      return;
-    }
     if (!selectedFood) {
       wx.showToast({ title: '请选择食物', icon: 'none' });
       return;
