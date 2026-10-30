@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>fridge-guard 冰箱食物保质期提醒</title>
+<style>
+  :root {
+    --bg: #f7f9fc;
+    --card: #ffffff;
+    --ink: #1a1f2e;
+    --muted: #5b6472;
+    --accent: #16a34a;
+    --accent-dark: #15803d;
+    --warm: #f59e0b;
+    --line: #e6eaf0;
+    --radius: 20px;
+    --shadow: 0 10px 30px rgba(23, 30, 54, 0.06);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  header.hero {
+    background: linear-gradient(160deg, #0f3d2e 0%, #166534 55%, #1b7a43 100%);
+    color: #fff;
+    padding: 96px 0 88px;
+    text-align: center;
+    border-radius: 0 0 32px 32px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.22);
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-size: 46px;
+    line-height: 1.25;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+  }
+  .sub {
+    font-size: 19px;
+    color: rgba(255,255,255,0.86);
+    margin-bottom: 40px;
+  }
+  .btn {
+    display: inline-block;
+    background: #fff;
+    color: #15803d;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px 34px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.24); }
+
+  /* Sections */
+  section { padding: 72px 0; }
+  .sec-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  h2 { font-size: 30px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 24px; }
+  p { color: var(--muted); font-size: 17px; }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .card h3 { font-size: 20px; margin-bottom: 12px; }
+  .card .tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .tag.pain { background: #fef3c7; color: #b45309; }
+  .tag.fix { background: #dcfce7; color: #15803d; }
+
+  /* Screens */
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .shot {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .shot .frame {
+    background: #eef2f7;
+    border-radius: 14px;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .shot .cap { font-size: 15px; font-weight: 700; color: var(--ink); }
+  .shot .cap small { display: block; font-weight: 500; color: var(--muted); margin-top: 4px; }
+
+  /* Product thinking */
+  .thinking {
+    background: #0f2436;
+    color: #fff;
+    border-radius: 28px;
+    padding: 56px;
+    box-shadow: 0 20px 50px rgba(15, 30, 54, 0.25);
+  }
+  .thinking h2 { color: #fff; }
+  .thinking .ver {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .ver.v1 { background: rgba(245,158,11,0.18); color: #fbbf24; }
+  .ver.v2 { background: rgba(34,197,94,0.18); color: #4ade80; }
+  .thinking p { color: rgba(255,255,255,0.82); font-size: 17px; margin-bottom: 18px; }
+  .thinking p:last-child { margin-bottom: 0; }
+  .thinking strong { color: #fff; }
+  .arrow {
+    text-align: center;
+    font-size: 28px;
+    color: #64748b;
+    margin: 8px 0;
+  }
+
+  /* Footer */
+  footer { padding: 56px 0 72px; text-align: center; }
+  footer .stack {
+    display: inline-block;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 15px;
+    color: var(--muted);
+    box-shadow: var(--shadow);
+  }
+  footer .stack b { color: var(--ink); }
+
+  @media (max-width: 760px) {
+    h1 { font-size: 32px; }
+    .pain-grid, .shots { grid-template-columns: 1fr; }
+    .thinking { padding: 32px 24px; }
+    header.hero { padding: 64px 0 56px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">微信小程序 · 智能食物管理</span>
+    <h1>fridge-guard<br>冰箱食物保质期提醒</h1>
+    <p class="sub">一个解决冰箱食物浪费与误食风险的小程序</p>
+    <a class="btn" href="https://github.com/xxr2005/fridge-guard" target="_blank" rel="noopener">查看源码</a>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-label">Why</div>
+    <h2>痛点与解法</h2>
+    <p>冰箱里塞满食材，放进去的东西转眼就忘了：青菜在冷藏室角落发黄、酸奶过期了才发现、肉冻了半年分不清是哪一顿买的。食物放错冰箱层、忘记吃，是每个家庭每天都在发生的浪费，而过期食物被误食，更是实实在在的健康风险。</p>
+    <div class="pain-grid">
+      <div class="card">
+        <span class="tag pain">痛点</span>
+        <h3>放错 · 忘记 · 浪费</h3>
+        <p>食材放进冰箱后没有记录，位置和保质期全凭记忆。等到想起来，往往已经过期变质，只能扔掉——浪费钱，也浪费食物。</p>
+      </div>
+      <div class="card">
+        <span class="tag fix">解法</span>
+        <h3>记录 · 提醒 · 对照</h3>
+        <p>fridge-guard 帮你给每样食物记下保质期，到期前自动提醒；不确定的食物可以对照标准图片库识别，而不是靠猜，避免误食风险。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-label">Features</div>
+    <h2>核心功能</h2>
+    <div class="shots">
+      <div class="shot">
+        <div class="frame"><img src="./images/home.png" alt="首页"></div>
+        <div class="cap">首页<small>一览冰箱里的食物与保质期</small></div>
+      </div>
+      <div class="shot">
+        <div class="frame"><img src="./images/add.png" alt="录入页"></div>
+        <div class="cap">录入页<small>快速记录食物与到期时间</small></div>
+      </div>
+      <div class="shot">
+        <div class="frame"><img src="./images/tip.png" alt="提示红绿框"></div>
+        <div class="cap">提示红 / 绿框<small>到期前绿框提示，过期红框警示</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-label">Product Thinking</div>
+    <div class="thinking">
+      <h2>产品思考：一次真实的改版</h2>
+      <p>初版做了一个看似合理的功能——强制要求用户给每样食物拍照记录。但在自己实际体验后，我意识到这非常反人类：给食物拍照既费事，拍出来的照片对判断"还能不能吃"也几乎没有帮助。</p>
+      <div class="arrow">↓</div>
+      <span class="ver v1">v1 · 强制拍照</span>
+      <p><strong>问题：</strong>每次录入都要拍一张照片，操作重、收益低。用户真正缺的不是自己食物的照片，而是"这个东西长什么样、坏了是什么样"的判断依据。</p>
+      <div class="arrow">↓</div>
+      <span class="ver v2">v2 · 拍照可选 + 标准图片库</span>
+      <p><strong>重构：</strong>用户更需要标准参考图去对照识别，而不是给自己的食物拍照。因此我把拍照改为<strong>可选备忘</strong>，并引入了一套<strong>标准食物图片库</strong>，让用户通过对照识别食物的新鲜度与保质期，而不是被拍照这个动作拦住。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="stack">
+      技术栈 · <b>微信小程序原生开发</b> · <b>Vant Weapp 组件库</b> · <b>本地 Storage 持久化</b>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
