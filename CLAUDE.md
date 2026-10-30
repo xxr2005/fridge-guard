@@ -9,6 +9,7 @@
 ## 目录约定
 
 - `utils/foodData.js` 是唯一食物数据源，修改需人工复核
+- 食物数据约定：fridgeOk 为 false 时，fridgeDays 固定为 0，noFridgeReason 非空；fridgeOk 为 true 时，fridgeDays 为正整数，noFridgeReason 为空字符串。
 
 ## 禁止项
 
