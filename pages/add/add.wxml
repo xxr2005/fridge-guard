@@ -7,16 +7,20 @@
 
   <view class="section-title">选择食物</view>
   <scroll-view class="food-scroll" scroll-y>
-    <view
-      wx:for="{{foodList}}"
-      wx:key="name"
-      class="food-item {{selectedFood && selectedFood.name === item.name ? 'food-item-active' : ''}}"
-      data-name="{{item.name}}"
-      bindtap="onSelectFood"
-    >
-      <image class="food-img" src="{{item.imageUrl}}" mode="aspectFill" />
-      <text class="food-name">{{item.name}}</text>
-    </view>
+    <van-cell-group inset>
+      <van-cell
+        wx:for="{{foodList}}"
+        wx:key="name"
+        center
+        data-name="{{item.name}}"
+        bindtap="onSelectFood"
+        custom-class="{{selectedFood && selectedFood.name === item.name ? 'food-item-active' : ''}}"
+      >
+        <image slot="icon" class="food-img" src="{{item.imageUrl}}" mode="aspectFill" />
+        <text slot="title" class="food-name {{selectedFood && selectedFood.name === item.name ? 'food-name-active' : ''}}">{{item.name}}</text>
+        <van-tag wx:if="{{!item.fridgeOk}}" slot="right-icon" type="danger" plain>不宜冷藏</van-tag>
+      </van-cell>
+    </van-cell-group>
   </scroll-view>
 
   <view wx:if="{{selectedFood}}" class="advice {{selectedFood.fridgeOk ? 'advice-ok' : 'advice-no'}}">
@@ -29,5 +33,7 @@
     </block>
   </view>
 
-  <button class="confirm" bindtap="onConfirm">确认放入冰箱</button>
+  <view class="confirm">
+    <van-button type="primary" block bindtap="onConfirm">确认放入冰箱</van-button>
+  </view>
 </view>

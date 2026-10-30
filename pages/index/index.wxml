@@ -1,22 +1,37 @@
 <!-- pages/index/index.wxml -->
 <view class="page">
   <block wx:if="{{records.length}}">
-    <view
-      wx:for="{{records}}"
-      wx:key="id"
-      class="card card-{{item.status}}"
-    >
-      <image wx:if="{{item.photoPath}}" class="thumb" src="{{item.photoPath}}" mode="aspectFill" />
-      <view wx:else class="thumb thumb-placeholder">无图</view>
-      <view class="info">
-        <text class="name">{{item.foodName}}</text>
-        <text class="remain">{{item.remainText}}</text>
-      </view>
-      <button class="eaten" data-id="{{item.id}}" bindtap="onMarkEaten">已吃完</button>
-    </view>
+    <van-cell-group inset>
+      <van-cell
+        wx:for="{{records}}"
+        wx:key="id"
+        center
+        use-label-slot
+      >
+        <image wx:if="{{item.photoPath}}" slot="icon" class="thumb" src="{{item.photoPath}}" mode="aspectFill" />
+        <view wx:else slot="icon" class="thumb thumb-placeholder">无图</view>
+
+        <text slot="title" class="name">{{item.foodName}}</text>
+
+        <view slot="label" class="meta">
+          <van-tag wx:if="{{item.status === 'expired'}}" type="danger">{{item.remainText}}</van-tag>
+          <van-tag wx:elif="{{item.status === 'fridge-off'}}" color="#8a9bb0">{{item.remainText}}</van-tag>
+          <van-tag wx:elif="{{item.status === 'warn'}}" type="warning">{{item.remainText}}</van-tag>
+          <van-tag wx:else type="success" plain>{{item.remainText}}</van-tag>
+        </view>
+
+        <view slot="right-icon" class="cell-right">
+          <van-button size="mini" plain hairline data-id="{{item.id}}" bindtap="onMarkEaten">已吃完</van-button>
+        </view>
+      </van-cell>
+    </van-cell-group>
   </block>
 
-  <view wx:else class="empty" bindtap="onEmptyTap">还没有记录，去添加吧</view>
+  <view wx:else class="empty-wrap">
+    <van-empty description="还没有记录，去添加吧" bindtap="onEmptyTap" />
+  </view>
 
-  <button class="add-fixed" bindtap="goAdd">添加食材</button>
+  <view class="footer">
+    <van-button type="primary" block bindtap="goAdd">添加食材</van-button>
+  </view>
 </view>

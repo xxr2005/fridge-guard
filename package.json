@@ -1,0 +1,24 @@
+{
+  "name": "fridge-guard",
+  "version": "1.0.0",
+  "description": "冰箱食物保质期提醒微信小程序。",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xxr2005/fridge-guard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/xxr2005/fridge-guard/issues"
+  },
+  "homepage": "https://github.com/xxr2005/fridge-guard#readme",
+  "dependencies": {
+    "@vant/weapp": "^1.11.7"
+  }
+}

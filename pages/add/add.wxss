@@ -35,15 +35,6 @@
   height: 480rpx;
 }
 
-.food-item {
-  padding: 24rpx;
-  border-bottom: 1rpx solid #eee;
-  font-size: 30rpx;
-  color: #333;
-  display: flex;
-  align-items: center;
-}
-
 .food-img {
   width: 80rpx;
   height: 80rpx;
@@ -52,8 +43,16 @@
   flex-shrink: 0;
 }
 
+.food-name {
+  font-size: 30rpx;
+  color: #333;
+}
+
 .food-item-active {
-  background: #eaf4ff;
+  background: #eaf4ff !important;
+}
+
+.food-name-active {
   color: #2b7bd6;
 }
 
@@ -87,7 +86,4 @@
 
 .confirm {
   margin-top: 32rpx;
-  background: #2b7bd6;
-  color: #fff;
-  border-radius: 12rpx;
 }
