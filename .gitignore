@@ -2,3 +2,4 @@ node_modules/
 miniprogram_npm/
 HANDOFF.md
 .DS_Store
+project.config.json
