@@ -1,33 +1,34 @@
+[English](./README.md) | [中文](./README.zh.md)
+
 # fridge-guard
 
-冰箱食物保质期提醒微信小程序。
+A WeChat Mini Program that reminds you of food shelf life in your fridge.
 
-## MVP 功能
+## MVP Features
 
-- 录入：记录食物与保质期
-- 即时冷藏提示：录入时提示是否需要冷藏
-- 倒计时首页：首页展示临期/过期倒计时
-- 标记吃完：标记食物已吃完
+- Add: record food and its shelf life
+- Instant refrigeration tip: prompt whether refrigeration is needed on entry
+- Countdown home page: show near-expiry / expired countdowns
+- Mark as eaten: mark food as consumed
 
-## 明确不做的三件事
+## Three Things We Explicitly Do Not Do
 
-- 不做拍照自动识别
-- 不引入第三方 UI 库
-- 不做消息推送
+- No automatic photo recognition
+- No third-party UI libraries
+- No push notifications
 
-## 食物数据免责声明
+## Food Data Disclaimer
 
-食物保质期数据仅供参考，不构成食品安全或医疗建议。实际可食用状态请以食品包装标注、储存条件及个人判断为准。
+Food shelf-life data is for reference only and does not constitute food-safety or medical advice. For actual edibility, follow the packaging labels, storage conditions, and your own judgment.
 
-## 本地运行说明
+## Local Run Instructions
 
-1. 打开微信开发者工具，选择「导入项目」，目录指向本项目根目录。
-2. 在「详情 → 本地设置」勾选「不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书」，否则外部参考图无法加载。
-3. 推荐使用稳定基础库 3.17.5。灰度基础库会导致 `appLaunch with non-empty page stack` 路由报错。
+1. Open WeChat DevTools, choose "Import Project", and point the directory to this project's root.
+2. Under "Details → Local Settings", check "Do not verify valid domain names, web-view (business domain), TLS versions and HTTPS certificates"; otherwise the external reference images cannot load.
+3. Use the stable base library 3.17.5. Gray-release base libraries cause the `appLaunch with non-empty page stack` routing error.
 
-## 已知限制
+## Known Limitations
 
-- 参考图目前为 dummyimage 占位图，非真实食物图片。
-- 拍照得到的 photoPath 是临时路径，小程序重启后可能失效。
-- 无自动清理过期记录：已吃完、已过期的记录仍保留在本地 Storage 中，会持续累积。
-
+- The reference images are currently dummyimage placeholders, not real food photos.
+- The photoPath from the camera is a temporary path and may become invalid after the Mini Program restarts.
+- No automatic cleanup of expired records: eaten and expired records remain in local Storage and keep accumulating.
