@@ -69,7 +69,7 @@ const foodData = [
 // 参考图占位：正式图未定，先用 dummyimage 按食物名生成，后续替换成真实图 URL
 const PLACEHOLDER_IMG = 'https://dummyimage.com/100x100/eee/333&text=';
 foodData.forEach((item) => {
-  item.imageUrl = PLACEHOLDER_IMG + item.name;
+  item.imageUrl = PLACEHOLDER_IMG + encodeURIComponent(item.name);
 });
 
 module.exports = foodData;

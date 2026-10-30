@@ -51,9 +51,13 @@ function getActiveRecords() {
   return getAll()
     .filter((item) => !item.eaten)
     .map((item) => {
+      const expireAt =
+        typeof item.expireAt === 'number' && Number.isFinite(item.expireAt)
+          ? item.expireAt
+          : startOfDay(now);
       const remainDays = Math.max(
         0,
-        Math.round((item.expireAt - startOfDay(now)) / DAY_MS)
+        Math.round((expireAt - startOfDay(now)) / DAY_MS)
       );
       return {
         id: item.id,
