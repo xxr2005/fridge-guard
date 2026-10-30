@@ -1,2 +1,5 @@
 <!-- pages/index/index.wxml -->
-<view>首页占位</view>
+<view class="page">
+  <view>首页占位</view>
+  <button class="entry" bindtap="goAdd">去添加食材</button>
+</view>

@@ -1,2 +1,6 @@
 // pages/index/index.js
-Page({});
+Page({
+  goAdd() {
+    wx.navigateTo({ url: '/pages/add/add' });
+  },
+});
