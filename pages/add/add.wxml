@@ -1,0 +1,30 @@
+<!-- pages/add/add.wxml -->
+<view class="page">
+  <view class="photo" bindtap="onChoosePhoto">
+    <image wx:if="{{photoPath}}" class="photo-img" src="{{photoPath}}" mode="aspectFill" />
+    <view wx:else class="photo-placeholder">拍照（缩略图）</view>
+  </view>
+
+  <view class="section-title">选择食物</view>
+  <scroll-view class="food-scroll" scroll-y>
+    <view
+      wx:for="{{foodList}}"
+      wx:key="name"
+      class="food-item {{selectedFood && selectedFood.name === item.name ? 'food-item-active' : ''}}"
+      data-name="{{item.name}}"
+      bindtap="onSelectFood"
+    >{{item.name}}</view>
+  </scroll-view>
+
+  <view wx:if="{{selectedFood}}" class="advice {{selectedFood.fridgeOk ? 'advice-ok' : 'advice-no'}}">
+    <block wx:if="{{selectedFood.fridgeOk}}">
+      <text>{{adviceText}}</text>
+    </block>
+    <block wx:else>
+      <text class="advice-title">不建议放冰箱</text>
+      <text class="advice-reason">{{selectedFood.noFridgeReason}}</text>
+    </block>
+  </view>
+
+  <button class="confirm" bindtap="onConfirm">确认放入冰箱</button>
+</view>
